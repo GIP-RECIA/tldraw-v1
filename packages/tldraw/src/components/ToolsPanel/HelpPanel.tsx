@@ -23,11 +23,17 @@ import { KeyboardShortcutDialog } from './KeyboardShortcutDialog'
 
 const isDebugModeSelector = (s: TDSnapshot) => s.settings.isDebugMode
 const dockPositionState = (s: TDSnapshot) => s.settings.dockPosition
+const isNewReleaseLinkSelector = (s: TDSnapshot) => !s.settings.hideNewReleaseLink
+const isSocialLinksSelector = (s: TDSnapshot) => !s.settings.hideSocialLinks
+const isSponsorLinkSelector = (s: TDSnapshot) => !s.settings.hideSponsorLink
 
 export function HelpPanel() {
   const app = useTldrawApp()
   const isDebugMode = app.useStore(isDebugModeSelector)
   const side = app.useStore(dockPositionState)
+  const isNewReleaseLink = app.useStore(isNewReleaseLinkSelector)
+  const isSocialLinks = app.useStore(isSocialLinksSelector)
+  const isSponsorLink = app.useStore(isSponsorLinkSelector)
 
   const [isKeyboardShortcutsOpen, setIsKeyboardShortcutsOpen] = React.useState(false)
 
@@ -44,8 +50,10 @@ export function HelpPanel() {
         <StyledContent style={{ visibility: isKeyboardShortcutsOpen ? 'hidden' : 'visible' }}>
           <LanguageMenuDropdown />
           <KeyboardShortcutDialog onOpenChange={setIsKeyboardShortcutsOpen} />
-          <Divider />
-          <Links />
+          {(isNewReleaseLink || isSocialLinks || isSponsorLink) && <Divider />}
+          {isNewReleaseLink && <Link item={newReleaseLink} />}
+          {isSocialLinks && socialLinks.map((item) => <Link key={item.id} item={item} />)}
+          {isSponsorLink && <Link item={sponsorLink} />}
         </StyledContent>
       </Popover.Content>
     </Popover.Root>
@@ -65,32 +73,30 @@ const LanguageMenuDropdown = () => {
   )
 }
 
-const linksData = [
-  { id: 'tldraw-beta', icon: ExternalLinkIcon, url: 'https://beta.tldraw.com' },
+const newReleaseLink = { id: 'tldraw-beta', icon: ExternalLinkIcon, url: 'https://beta.tldraw.com' }
+
+const socialLinks = [
   { id: 'github', icon: GitHubLogoIcon, url: 'https://github.com/tldraw/tldraw' },
   { id: 'twitter', icon: TwitterLogoIcon, url: 'https://twitter.com/tldraw' },
   { id: 'discord', icon: DiscordIcon, url: 'https://discord.gg/SBBEVCA4PG' },
-  {
-    id: 'become.a.sponsor',
-    icon: HeartFilledIcon,
-    url: 'https://github.com/sponsors/steveruizok',
-  },
 ]
 
-const Links = () => {
+const sponsorLink = {
+  id: 'become.a.sponsor',
+  icon: HeartFilledIcon,
+  url: 'https://github.com/sponsors/steveruizok',
+}
+
+const Link = ({ item }: { item: { id: string; icon: any; url: string } }) => {
   return (
-    <>
-      {linksData.map((item) => (
-        <a key={item.id} href={item.url} target="_blank" rel="nofollow">
-          <RowButton id={`TD-Link-${item.id}`} variant="wide">
-            <FormattedMessage id={item.id} />
-            <SmallIcon>
-              <item.icon />
-            </SmallIcon>
-          </RowButton>
-        </a>
-      ))}
-    </>
+    <a href={item.url} target="_blank" rel="nofollow">
+      <RowButton id={`TD-Link-${item.id}`} variant="wide">
+        <FormattedMessage id={item.id} />
+        <SmallIcon>
+          <item.icon />
+        </SmallIcon>
+      </RowButton>
+    </a>
   )
 }
 

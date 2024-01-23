@@ -121,6 +121,21 @@ export interface TldrawProps extends TDCallbacks {
    * (optional) To hide cursors
    */
   hideCursors?: boolean
+
+  /**
+   * (optional) To hide new release link
+   */
+  hideNewReleaseLink?: boolean
+
+  /**
+   * (optional) To hide social links
+   */
+  hideSocialLinks?: boolean
+
+  /**
+   * (optional) To hide sponsor link
+   */
+  hideSponsorLink?: boolean
 }
 
 const isSystemDarkMode = window.matchMedia
@@ -164,6 +179,9 @@ export function Tldraw({
   onSessionEnd,
   onExport,
   hideCursors,
+  hideNewReleaseLink,
+  hideSocialLinks,
+  hideSponsorLink,
 }: TldrawProps) {
   const [sId, setSId] = React.useState(id)
 
@@ -278,6 +296,27 @@ export function Tldraw({
       app.toggleDarkMode()
     }
   }, [app, darkMode])
+
+  // Toggle the app's hideNewReleaseLink when the `hideNewReleaseLink` prop changes.
+  React.useEffect(() => {
+    if (hideNewReleaseLink !== app.settings.hideNewReleaseLink) {
+      app.setSetting('hideNewReleaseLink', hideNewReleaseLink ? true : false)
+    }
+  }, [app, hideNewReleaseLink])
+
+  // Toggle the app's hideSocialLinks when the `hideSocialLinks` prop changes.
+  React.useEffect(() => {
+    if (hideSocialLinks !== app.settings.hideSocialLinks) {
+      app.setSetting('hideSocialLinks', hideSocialLinks ? true : false)
+    }
+  }, [app, hideSocialLinks])
+
+  // Toggle the app's hideSponsorLink when the `hideSponsorLink` prop changes.
+  React.useEffect(() => {
+    if (hideSponsorLink !== app.settings.hideSponsorLink) {
+      app.setSetting('hideSponsorLink', hideSponsorLink ? true : false)
+    }
+  }, [app, hideSponsorLink])
 
   // Update the app's callbacks when any callback changes.
   React.useEffect(() => {

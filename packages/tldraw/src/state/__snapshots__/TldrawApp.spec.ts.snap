@@ -55,6 +55,9 @@ TldrawTestApp {
     "settings": Object {
       "dockPosition": "bottom",
       "exportBackground": "transparent",
+      "hideNewReleaseLink": false,
+      "hideSocialLinks": false,
+      "hideSponsorLink": false,
       "isCadSelectMode": false,
       "isDarkMode": false,
       "isDebugMode": false,
@@ -207,6 +210,9 @@ TldrawTestApp {
     "settings": Object {
       "dockPosition": "bottom",
       "exportBackground": "transparent",
+      "hideNewReleaseLink": false,
+      "hideSocialLinks": false,
+      "hideSponsorLink": false,
       "isCadSelectMode": false,
       "isDarkMode": false,
       "isDebugMode": false,
@@ -380,6 +386,9 @@ TldrawTestApp {
     "settings": Object {
       "dockPosition": "bottom",
       "exportBackground": "transparent",
+      "hideNewReleaseLink": false,
+      "hideSocialLinks": false,
+      "hideSponsorLink": false,
       "isCadSelectMode": false,
       "isDarkMode": false,
       "isDebugMode": false,

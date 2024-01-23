@@ -4205,6 +4205,9 @@ export class TldrawApp extends StateManager<TDSnapshot> {
       language: 'en',
       dockPosition: 'bottom',
       exportBackground: TDExportBackground.Transparent,
+      hideNewReleaseLink: false,
+      hideSocialLinks: false,
+      hideSponsorLink: false,
     },
     appState: {
       status: TDStatus.Idle,

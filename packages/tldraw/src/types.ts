@@ -98,6 +98,9 @@ export interface TDSnapshot {
     language: TDLanguage
     dockPosition: TDDockPosition
     exportBackground: TDExportBackground
+    hideNewReleaseLink: boolean
+    hideSocialLinks: boolean
+    hideSponsorLink: boolean
   }
   appState: {
     currentStyle: ShapeStyles
